@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace ShoppingCart.Data.Entities
 {
-    public class Producto
+    public class StockMovements
     {
         public int Id;
-        public string Codigo;
-        public string Nombre;
-        public string Descripcion;
-        public float Precio;
+        public int ProductId;
+        public int Quantity;
+        public string TransactionType;
+        public DateTime EntryDate;
+
     }
 }
