@@ -71,18 +71,9 @@ namespace ShoppingCart.Test
             var cart = ScenarioContext.Current.Get<ShopCart>("currentCart");
             var inventoryManager = ScenarioContext.Current.Get<Mock<IInventoryManager>>("moq_inventoryManager");
             var cartManager = ScenarioContext.Current.Get<Mock<IShoppingCartManager>>("moq_cartManager");
-
-            ScenarioContext.Current.Remove("moq_inventoryManager");
-            ScenarioContext.Current.Remove("moq_cartManager");
-
             SaleManager saleManager = new SaleManager(inventoryManager.Object,cartManager.Object);
-
             var Total = saleManager.CheckOut(cart.Id);
-            ScenarioContext.Current.Add("Total",Total);
-
-            ScenarioContext.Current.Add("moq_inventoryManager", inventoryManager);
-            ScenarioContext.Current.Add("moq_cartManager", cartManager);
-
+            ScenarioContext.Current.Add("Total",Total);       
         }
         
         [Then(@"the Ammount I pay is (.*)")]
