@@ -18,7 +18,7 @@ namespace ShoppingCart.Test
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "2.1.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute()]
-    public partial class SpecFlowFeature1Feature
+    public partial class CheckingOutAPurchaseFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
@@ -30,8 +30,7 @@ namespace ShoppingCart.Test
         public static void FeatureSetup(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContext)
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner(null, 0);
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "SpecFlowFeature1", "\tIn order to avoid silly mistakes\r\n\tAs a math idiot\r\n\tI want to be told the sum o" +
-                    "f two numbers", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "CheckingOut a purchase", "\tAt the finalization of a purchase, I want to be able to check out.", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -46,9 +45,9 @@ namespace ShoppingCart.Test
         public virtual void TestInitialize()
         {
             if (((testRunner.FeatureContext != null) 
-                        && (testRunner.FeatureContext.FeatureInfo.Title != "SpecFlowFeature1")))
+                        && (testRunner.FeatureContext.FeatureInfo.Title != "CheckingOut a purchase")))
             {
-                ShoppingCart.Test.SpecFlowFeature1Feature.FeatureSetup(null);
+                ShoppingCart.Test.CheckingOutAPurchaseFeature.FeatureSetup(null);
             }
         }
         
@@ -70,15 +69,15 @@ namespace ShoppingCart.Test
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Normal Checkout")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "SpecFlowFeature1")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "CheckingOut a purchase")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("mytag")]
         public virtual void NormalCheckout()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Normal Checkout", new string[] {
                         "mytag"});
-#line 7
+#line 5
 this.ScenarioSetup(scenarioInfo);
-#line 8
+#line 6
  testRunner.Given("a shopping cart with ID 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
@@ -101,7 +100,7 @@ this.ScenarioSetup(scenarioInfo);
                         "1",
                         "3",
                         "8"});
-#line 9
+#line 7
  testRunner.And("Products in Shopping Cart Exist in Stock", ((string)(null)), table1, "And ");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
@@ -128,16 +127,59 @@ this.ScenarioSetup(scenarioInfo);
                         "Gamma",
                         "Tercia",
                         "3.00"});
-#line 14
+#line 12
  testRunner.Given("the following Product Table", ((string)(null)), table2, "Given ");
-#line 19
+#line 17
  testRunner.When("I Checkout the Products from Cart", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 20
+#line 18
  testRunner.Then("the Ammount I pay is 40", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 21
+#line 19
  testRunner.Then("the Producst must have Reduced in Stock", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 22
+#line 20
  testRunner.Then("Shopping Cart status must have changed to Paid", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Out of Stock Scenario")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "CheckingOut a purchase")]
+        public virtual void OutOfStockScenario()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Out of Stock Scenario", ((string[])(null)));
+#line 22
+this.ScenarioSetup(scenarioInfo);
+#line 23
+testRunner.Given("a shopping cart with ID 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                        "ID",
+                        "ShoppingCartId",
+                        "ProductId",
+                        "Quantity"});
+            table3.AddRow(new string[] {
+                        "1",
+                        "1",
+                        "1",
+                        "10"});
+            table3.AddRow(new string[] {
+                        "2",
+                        "1",
+                        "2",
+                        "3"});
+            table3.AddRow(new string[] {
+                        "3",
+                        "1",
+                        "3",
+                        "8"});
+#line 24
+testRunner.And("any Product is out of Stock", ((string)(null)), table3, "And ");
+#line 29
+testRunner.When("I Checkout the Products from Empty Cart", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 30
+testRunner.Then("throw an Out of Stock error", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 31
+testRunner.Then("verify that a Email was sent indicating what Product must be restocked", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

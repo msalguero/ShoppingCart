@@ -5,8 +5,9 @@ namespace ShoppingCart.Data
 {
     public interface IInventoryManager
     {
-        bool InStock(List<ShoppingCartItem> itemlist);
         float getProductPrice(int productId);
         void decreaseStock(int productId, int quantity);
+        void sendEmail(List<Product> itemList);
+        List<Product> getOutOfStockItems(List<ShoppingCartItem> itemList);
     }
 }

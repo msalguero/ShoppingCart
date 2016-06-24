@@ -48,7 +48,7 @@ namespace ShoppingCart.Test
             moq_cartManager.Setup(manager => manager.setCartAsPaid(It.IsAny<int>()));
 
             var moq_inventoryManager = new Mock<IInventoryManager>();
-            moq_inventoryManager.Setup(manager => manager.InStock(It.IsAny<List<ShoppingCartItem>>())).Returns(true);
+            moq_inventoryManager.Setup(manager => manager.getOutOfStockItems(It.IsAny<List<ShoppingCartItem>>())).Returns(new List<Product>());
             moq_inventoryManager.Setup(manager => manager.getProductPrice(1)).Returns(1.00f);
             moq_inventoryManager.Setup(manager => manager.getProductPrice(2)).Returns(2.00f);
             moq_inventoryManager.Setup(manager => manager.getProductPrice(3)).Returns(3.00f);
@@ -106,5 +106,73 @@ namespace ShoppingCart.Test
             var cartManager = ScenarioContext.Current.Get<Mock<IShoppingCartManager>>("moq_cartManager");
             cartManager.Verify(manager => manager.setCartAsPaid(It.IsAny<int>()),Times.Exactly(1));
         }
+
+        [Given(@"any Product is out of Stock")]
+        public void GivenAnyProductIsOutOfStock(Table table)
+        {
+            var itemsInCart = table;
+
+            List<ShoppingCartItem> cartItems = new List<ShoppingCartItem>();
+            foreach (var row in itemsInCart.Rows)
+            {
+                cartItems
+                    .Add(new ShoppingCartItem
+                    {
+                        Id = Int32.Parse(row["ID"]),
+                        ShoppingCartId = Int32.Parse(row["ShoppingCartId"]),
+                        ProductId = Int32.Parse(row["ProductId"]),
+                        Quantity = Int32.Parse(row["Quantity"]),
+                    }
+                    );
+            }
+            var moq_cartManager = new Mock<IShoppingCartManager>();
+            moq_cartManager.Setup(manager => manager.getShoppingCartItems(It.IsAny<int>())).Returns(cartItems);
+
+            var outOfStockItems = new List<Product>();
+            outOfStockItems.Add(new Product { Id = 1, Code = "A", Description = "Description", Name = "Alpha", Price = 1.01f });
+
+            var moq_inventoryManager = new Mock<IInventoryManager>();
+            moq_inventoryManager.Setup(manager => manager.getOutOfStockItems(It.IsAny<List<ShoppingCartItem>>())).Returns(outOfStockItems);
+
+            ScenarioContext.Current.Add("moq_cartManager", moq_cartManager);
+            ScenarioContext.Current.Add("moq_inventoryManager", moq_inventoryManager);
+        }
+
+        [When(@"I Checkout the Products from Empty Cart")]
+        public void WhenICheckoutTheProductsFromAnEmptyCart()
+        {
+            var inventoryManager = ScenarioContext.Current.Get<Mock<IInventoryManager>>("moq_inventoryManager");
+            var cartManager = ScenarioContext.Current.Get<Mock<IShoppingCartManager>>("moq_cartManager");
+
+            SaleManager saleManager = new SaleManager(inventoryManager.Object, cartManager.Object);
+            ScenarioContext.Current.Add("saleManager", saleManager);
+
+        }
+
+        [Then(@"throw an Out of Stock error")]
+        public void ThenThrowAnOutOfStockError()
+        {
+
+            var cart = ScenarioContext.Current.Get<ShopCart>("currentCart");
+            SaleManager saleManager = ScenarioContext.Current.Get<SaleManager>("saleManager");
+            try
+            {
+                saleManager.CheckOut(cart.Id);
+            }
+            catch (Exception exemp)
+            {
+                Assert.AreEqual(typeof(OutOfStockException), exemp.GetType());
+            }
+
+
+        }
+
+        [Then(@"verify that a Email was sent indicating what Product must be restocked")]
+        public void ThenVerifyThatAEmailWasSentIndicatingWhatProductMustBeRestocked()
+        {
+            var inventoryManager = ScenarioContext.Current.Get<Mock<IInventoryManager>>("moq_inventoryManager");
+            inventoryManager.Verify(manager => manager.sendEmail(It.IsAny<List<Product>>()), Times.Exactly(1));
+        }
+
     }
 }

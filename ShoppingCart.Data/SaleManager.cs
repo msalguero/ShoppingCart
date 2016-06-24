@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ShoppingCart.Data.Entities;
 
 namespace ShoppingCart.Data
 {
@@ -22,7 +23,8 @@ namespace ShoppingCart.Data
             float CheckoutTotal = 0;
 
             var itemList = shoppingCartManager.getShoppingCartItems(cartId);
-            if (inventoryManager.InStock(itemList))
+            var itemsOutOfStock = inventoryManager.getOutOfStockItems(itemList);
+            if (itemsOutOfStock.Count <= 0)
             {
                 foreach (var item in itemList)
                 {
@@ -36,6 +38,7 @@ namespace ShoppingCart.Data
             }
             else
             {
+                inventoryManager.sendEmail(itemsOutOfStock);
                 throw new OutOfStockException();
             }
 
