@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace ShoppingCart.Data.Entities
 {
-    public class ShoppingCartItems
+    public class ShopCart
     {
         public int Id;
-        public int ShoppingCartId ;
-        public int ProductId;
-        public int Quantity;
+        public string User;
+        public string State;
+        public DateTime CreationDate;
+
     }
 }
