@@ -78,19 +78,19 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
                         "Id",
-                        "Usuario",
-                        "Estado",
-                        "FechaDeCreacion"});
+                        "User",
+                        "State",
+                        "CreationDate"});
             table1.AddRow(new string[] {
                         "1",
                         "victor",
                         "sinPagar",
-                        "25/06/2016"});
+                        "25/04/2016"});
             table1.AddRow(new string[] {
                         "2",
                         "ricardo",
                         "sinPagar",
-                        "25/06/2016"});
+                        "25/04/2016"});
             table1.AddRow(new string[] {
                         "3",
                         "sebastian",
@@ -107,9 +107,22 @@ testRunner.Given("una lista de carritos pendientes y pagados", ((string)(null)),
 testRunner.Given("el usuario victor", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 12
 testRunner.When("Al ejecutar el reporte de carritos pendientes", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Id",
+                        "User",
+                        "State"});
+            table2.AddRow(new string[] {
+                        "1",
+                        "victor",
+                        "sinPagar"});
+            table2.AddRow(new string[] {
+                        "2",
+                        "ricardo",
+                        "sinPagar"});
 #line 13
 testRunner.Then("devolvera los carritos que tengan mas de un mes de creados y que aun esten pendie" +
-                    "ntes", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+                    "ntes", ((string)(null)), table2, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
