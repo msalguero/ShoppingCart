@@ -16,14 +16,14 @@ namespace ShoppingCart.Test
         [Given(@"una lista de carritos pendientes y pagados")]
         public void GivenUnaListaDeCarritosPendientesYPagados(Table table)
         {
-            List<ShopCart> listaCarritos = (List<ShopCart>)table.CreateSet<ShopCart>();
-            ScenarioContext.Current.Add("listaCarritos", listaCarritos);
+            List<ShopCart> shopCartsList = (List<ShopCart>)table.CreateSet<ShopCart>();
+            ScenarioContext.Current.Add("shopCartsList", shopCartsList);
         }
         
         [Given(@"el usuario (.*)")]
-        public void GivenElUsuario(string usuario)
+        public void GivenElUsuario(string user)
         {
-            ScenarioContext.Current.Add("usuario", usuario);
+            ScenarioContext.Current.Add("user", user);
         }
         
         [When(@"Al ejecutar el reporte de carritos pendientes")]
@@ -35,11 +35,11 @@ namespace ShoppingCart.Test
                 new ShopCart(){Id = 2, User = "ricardo", State = "sinPagar"}
             };
             var mockShopCartRepository = new Mock<IShoppingCartRepository>();
-            mockShopCartRepository.Setup(m => m.GetCarritosPendientes(It.IsAny<List<ShopCart>>())).Returns(returnList);
+            mockShopCartRepository.Setup(m => m.GetPendingShopCarts(It.IsAny<List<ShopCart>>())).Returns(returnList);
 
             ShopCartManager shopCartManager = new ShopCartManager(mockShopCartRepository.Object);
-            var listaCarritos = (List<ShopCart>)ScenarioContext.Current["listaCarritos"];
-            var returnedList = shopCartManager.GetCarritosPendientes(listaCarritos);
+            var shopCartsList = (List<ShopCart>)ScenarioContext.Current["shopCartsList"];
+            var returnedList = shopCartManager.GetPendingShopCarts(shopCartsList);
             ScenarioContext.Current.Add("returnedList", returnedList);
         }
         [Then(@"devolvera los carritos que tengan mas de un mes de creados y que aun esten pendientes")]

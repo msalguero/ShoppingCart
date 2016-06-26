@@ -12,9 +12,9 @@ namespace ShoppingCart.Data
             _shoppingCartRepository = shoppingCartRepository;
         }
 
-        public List<ShopCart> GetCarritosPendientes(List<ShopCart> listaCarritos)
+        public List<ShopCart> GetPendingShopCarts(List<ShopCart> shopCartsList)
         {
-            return _shoppingCartRepository.GetCarritosPendientes(listaCarritos);
+            return _shoppingCartRepository.GetPendingShopCarts(shopCartsList);
         }
     }
 }

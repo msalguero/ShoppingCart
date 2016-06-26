@@ -5,6 +5,6 @@ namespace ShoppingCart.Data.Repositories
 {
     public interface IShoppingCartRepository
     {
-        List<ShopCart> GetCarritosPendientes(List<ShopCart> listaCarritos);
+        List<ShopCart> GetPendingShopCarts(List<ShopCart> shopCartsList);
     }
 }
