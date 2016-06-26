@@ -11,7 +11,7 @@ using TechTalk.SpecFlow.Assist;
 namespace ShoppingCart.Test
 {
     [Binding]
-    public class CarritosViejosPendientesTestsSteps
+    public class PendingShopCartsTestsSteps
     {
         [Given(@"una lista de carritos pendientes y pagados")]
         public void GivenUnaListaDeCarritosPendientesYPagados(Table table)

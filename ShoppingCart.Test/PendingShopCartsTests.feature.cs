@@ -23,7 +23,7 @@ namespace ShoppingCart.Test
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "CarritosViejosPendientesTests.feature"
+#line 1 "PendingShopCartsTests.feature"
 #line hidden
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.ClassInitializeAttribute()]
