@@ -11,5 +11,6 @@ namespace ShoppingCart.Data
     {
         List<ShoppingCartItem> getShoppingCartItems(int cartId);
         void setCartAsPaid(int cartId);
+        bool isCartPaid(int cartId);
     }
 }

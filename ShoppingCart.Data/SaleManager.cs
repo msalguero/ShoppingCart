@@ -22,6 +22,11 @@ namespace ShoppingCart.Data
         {
             float CheckoutTotal = 0;
 
+            if (shoppingCartManager.isCartPaid(cartId))
+            {
+                throw new CartAlreadyPaidException();
+            }
+
             var itemList = shoppingCartManager.getShoppingCartItems(cartId);
             var itemsOutOfStock = inventoryManager.getOutOfStockItems(itemList);
             if (itemsOutOfStock.Count <= 0)

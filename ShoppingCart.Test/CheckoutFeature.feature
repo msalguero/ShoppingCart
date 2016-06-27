@@ -29,3 +29,9 @@ And any Product is out of Stock
 When I Checkout the Products from Empty Cart
 Then throw an Out of Stock error
 Then verify that a Email was sent indicating what Product must be restocked
+
+Scenario: Already Paid Cart
+Given a shopping cart with ID 1
+And that cart is already Paid
+When I Checkout the Products from a Paid Cart
+Then throw an Already Paid error
