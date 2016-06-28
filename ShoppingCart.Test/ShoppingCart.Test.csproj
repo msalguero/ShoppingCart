@@ -76,6 +76,8 @@
       <DependentUpon>CheckoutFeature.feature</DependentUpon>
     </Compile>
     <Compile Include="CheckoutProcedureSteps.cs" />
+    <Compile Include="PendingShopCartsTests.feature.cs" />
+    <Compile Include="PendingShopCartsTestsSteps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReportFeature.feature.cs">
       <AutoGen>True</AutoGen>
@@ -94,6 +96,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
+    <None Include="PendingShopCartsTests.feature" />
     <None Include="ReportFeature.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>ReportFeature.feature.cs</LastGenOutput>
