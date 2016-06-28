@@ -70,26 +70,24 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="CarritosViejosPendientesTests.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CarritosViejosPendientesTests.feature</DependentUpon>
-    </Compile>
-    <Compile Include="CarritosViejosPendientesTestsSteps.cs" />
     <Compile Include="CheckoutFeature.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CheckoutFeature.feature</DependentUpon>
     </Compile>
     <Compile Include="CheckoutProcedureSteps.cs" />
+    <Compile Include="PendingShopCartsTests.feature.cs" />
+    <Compile Include="PendingShopCartsTestsSteps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportFeature.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReportFeature.feature</DependentUpon>
+    </Compile>
+    <Compile Include="ReportFeatureSteps.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="CarritosViejosPendientesTests.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>CarritosViejosPendientesTests.feature.cs</LastGenOutput>
-    </None>
     <None Include="CheckoutFeature.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>CheckoutFeature.feature.cs</LastGenOutput>
@@ -98,6 +96,11 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
+    <None Include="PendingShopCartsTests.feature" />
+    <None Include="ReportFeature.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ReportFeature.feature.cs</LastGenOutput>
+    </None>
     <None Include="runtests.cmd" />
     <None Include="SpecRunTestProfile.xsd">
       <SubType>Designer</SubType>
@@ -110,6 +113,10 @@
     <ProjectReference Include="..\ShoppingCart.Data\ShoppingCart.Data.csproj">
       <Project>{F0052BCC-9721-4E0D-A211-A14CC650E327}</Project>
       <Name>ShoppingCart.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ShoppingCart\ShoppingCart.csproj">
+      <Project>{F74E362F-CCBB-4D64-A95C-F7BFC1C30C5B}</Project>
+      <Name>ShoppingCart</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

@@ -19,7 +19,7 @@ namespace ShoppingCart.Test
             {
                 Id = p0,
                 CreationDate = DateTime.Today,
-                State = "Unpaid",
+                State = "Unknown",
                 User = "Fabian"
             };
             ScenarioContext.Current.Add("currentCart", Cart);
@@ -164,6 +164,45 @@ namespace ShoppingCart.Test
             var inventoryManager = ScenarioContext.Current.Get<Mock<IInventoryManager>>("moq_inventoryManager");
             inventoryManager.Verify(manager => manager.sendEmail(It.IsAny<List<Product>>()), Times.Exactly(1));
         }
+
+        [Given(@"that cart is already Paid")]
+        public void GivenThatCartIsAlreadyPaid()
+        {
+
+            var moq_cartManager = new Mock<IShoppingCartManager>();
+            moq_cartManager.Setup(manager => manager.isCartPaid(It.IsAny<int>())).Returns(true);
+
+            var moq_inventoryManager = new Mock<IInventoryManager>();
+  
+            ScenarioContext.Current.Add("moq_cartManager", moq_cartManager);
+            ScenarioContext.Current.Add("moq_inventoryManager", moq_inventoryManager);
+        }
+
+        [When(@"I Checkout the Products from a Paid Cart")]
+        public void WhenICheckoutTheProductsFromAPaidCart()
+        {
+            var inventoryManager = ScenarioContext.Current.Get<Mock<IInventoryManager>>("moq_inventoryManager");
+            var cartManager = ScenarioContext.Current.Get<Mock<IShoppingCartManager>>("moq_cartManager");
+
+            SaleManager saleManager = new SaleManager(inventoryManager.Object, cartManager.Object);
+            ScenarioContext.Current.Add("saleManager", saleManager);
+        }
+
+        [Then(@"throw an Already Paid error")]
+        public void ThenThrowAnAlreadyPaidError()
+        {
+            var cart = ScenarioContext.Current.Get<ShopCart>("currentCart");
+            SaleManager saleManager = ScenarioContext.Current.Get<SaleManager>("saleManager");
+            try
+            {
+                saleManager.CheckOut(cart.Id);
+            }
+            catch (Exception exemp)
+            {
+                Assert.AreEqual(typeof(CartAlreadyPaidException), exemp.GetType());
+            }
+        }
+
 
     }
 }
